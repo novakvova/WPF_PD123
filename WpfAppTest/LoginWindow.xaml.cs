@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace WpfAppTest
             //});
             //data.SaveChanges();
             //var count = data.Users.Count();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
             InitializeComponent();
         }

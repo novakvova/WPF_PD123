@@ -11,7 +11,7 @@
             <RowDefinition Height="89*"/>
             <RowDefinition Height="128*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="143*"/>
             <ColumnDefinition Width="257*"/>
@@ -20,7 +20,19 @@
             <Label Content="Вкажіть пошту" FontSize="16" FontWeight="Bold"/>
             <TextBox FontSize="16" />
         </StackPanel>
-        <Button Content="Я готов" Grid.Column="1" Grid.Row="1" />
+        <Button Content="Обрати фото" HorizontalAlignment="Left" 
+                Margin="79,131,0,0"
+                VerticalAlignment="Top" Height="37" 
+                Width="182" Click="Button_Click"/>
+        <Image Height="100"
+               Name="image"
+               Width="100" 
+               Margin="93,78,93,78" 
+               Grid.Row="1"/>
+        <Button Grid.Column="1" Content="Зберегти" Name="Save"
+                HorizontalAlignment="Left" Margin="306,188,0,0" Grid.Row="1" 
+                VerticalAlignment="Top" Height="43" Width="165" Click="Save_Click"/>
+
 
     </Grid>
 </Window>
