@@ -25,5 +25,6 @@
             </WrapPanel>
         </Button>
         <Button Content="Створити аканут" Canvas.Left="354" Canvas.Top="73" Height="43" Width="150" Click="Button_Click_1"/>
+        <Button x:Name="btnShowData" Content="Cписок даних MVVM" Canvas.Left="46" Canvas.Top="141" Height="60" Width="161" Click="btnShowData_Click"/>
     </Canvas>
 </Window>

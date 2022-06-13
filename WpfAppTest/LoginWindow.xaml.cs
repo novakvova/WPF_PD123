@@ -46,5 +46,11 @@ namespace WpfAppTest
             RegisterWindow register = new RegisterWindow();
             register.ShowDialog();
         }
+
+        private void btnShowData_Click(object sender, RoutedEventArgs e)
+        {
+            ListUsersWindow register = new ListUsersWindow();
+            register.ShowDialog();
+        }
     }
 }
