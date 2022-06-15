@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bogus;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -62,6 +63,40 @@ namespace WpfAppTest
                     userView.ImageUrl = "https://kasta.ua/image/1035/uploads/product_image/2020/07/157/3a47b1be23f77bc5ad1d76137250bcc5.jpeg";
                 }
             }
+        }
+
+        private void btnRandomUser_Click(object sender, RoutedEventArgs e)
+        {
+            //uk-ua
+            var faker = new Faker<User>("uk")
+                .RuleFor(u => u.Name, 
+                    (f, u) => f.Name.FullName())
+                .RuleFor(u=>u.Phone, f=>f.Phone.PhoneNumber())
+                .RuleFor(u=>u.Email, f=>f.Internet.Email())
+                .RuleFor(u=>u.Password, f=>f.Internet.Password())
+                .RuleFor(u=>u.Image, f=>f.Image.PicsumUrl());
+
+            MyDataContext context = new MyDataContext();
+            for (int i = 0; i < 1000; i++)
+            {
+                var user = faker.Generate();
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+        }
+
+        private void btnSearchUser_Click(object sender, RoutedEventArgs e)
+        {
+            string firstName= "Олександр";
+
+            MyDataContext context = new MyDataContext();
+            var query = context.Users.AsQueryable();
+            if(!string.IsNullOrEmpty(firstName))
+            {
+                query = query.Where(x => x.Name.Contains(firstName));
+            }
+
+            var result = query.ToList();
         }
     }
 }

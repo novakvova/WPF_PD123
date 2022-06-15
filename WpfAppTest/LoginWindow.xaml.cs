@@ -43,6 +43,8 @@ namespace WpfAppTest
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            AuthUser.UserEmail = "Сало";
+            //var user = MyDataContext.
             RegisterWindow register = new RegisterWindow();
             register.ShowDialog();
         }
