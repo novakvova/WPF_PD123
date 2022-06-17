@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfAppTest.Models
 {
-    public class User
+    public class User : INotifyPropertyChanged 
     {
         //Ідентифікатор
         public int Id { get; set; }
@@ -17,5 +18,11 @@ namespace WpfAppTest.Models
         public string Image { get; set; }
         //Зберігаємо у шифрованому виді
         public string Password { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
     }
 }

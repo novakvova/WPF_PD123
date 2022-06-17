@@ -13,17 +13,30 @@
             <Button Name="btnRandomUser" Click="btnRandomUser_Click">Генерація даних</Button>
             <Button Name="btnSearchUser" Click="btnSearchUser_Click">Пошук</Button>
         </StackPanel>
-        <DataGrid Name="dgUsers" AutoGenerateColumns="False">
+        <DataGrid Name="dgUsers">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Назва" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn Header="Image" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="50" Width="100" Source="{Binding Image}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
             </DataGrid.Columns>
-            <DataGrid.RowDetailsTemplate>
+            <!--<DataGrid.Columns>
+                
+                <DataGridTextColumn Header="Назва" Binding="{Binding Name}"/>
+            </DataGrid.Columns>-->
+            <!--<DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <DockPanel Background="GhostWhite">
-                        <Image DockPanel.Dock="Left" Source="{Binding ImageUrl}" Height="64" Margin="10"/>
+                        <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="64" Margin="10"/>
                     </DockPanel>
                 </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
+            </DataGrid.RowDetailsTemplate>-->
         </DataGrid>
     </DockPanel>
 </Window>

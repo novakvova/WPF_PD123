@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,26 +29,9 @@ namespace WpfAppTest
         {
             InitializeComponent();
             context = new MyDataContext();
-            //users.Add(new UserVM()
-            //{
-            //    Id = 1,
-            //    Name="Сашко",
-            //    ImageUrl = "https://image.cnbcfm.com/api/v1/image/105992231-1561667465295gettyimages-521697453.jpeg?v=1561667497&w=1600&h=900"
-            //});
-            //users.Add(new UserVM()
-            //{
-            //    Id = 2,
-            //    Name = "Петро Васильович",
-            //    ImageUrl = @"C:\mydata\Study\2022\26. WPF PD123\Lesson 1. Begin\WpfAppTest\WpfAppTest\bin\Debug\net5.0-windows\images\150_lkfaxb4p.4uf.jpg"
-            //});
-            var data = context.Users.Select(x => new UserVM
-            {
-                Id = x.Id,
-                Name = x.Name,
-                ImageUrl=x.Image
-            }).ToList();
-            users = new ObservableCollection<UserVM>(data);
-            dgUsers.ItemsSource = users;
+            var data = context.Users.ToList();
+            var collection = new ObservableCollection<User>(data);
+            dgUsers.ItemsSource = collection;
         }
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
@@ -92,20 +76,46 @@ namespace WpfAppTest
                 context.Users.Add(user);
                 context.SaveChanges();
             }
+            MessageBox.Show("Complete " + context.Users.Count());
         }
 
         private void btnSearchUser_Click(object sender, RoutedEventArgs e)
         {
-            string firstName= "Олександр";
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            string firstName = "";//"Олександр";
 
-            MyDataContext context = new MyDataContext();
+            
             var query = context.Users.AsQueryable();
             if(!string.IsNullOrEmpty(firstName))
             {
                 query = query.Where(x => x.Name.Contains(firstName));
             }
 
+            //page =1;
+            int page = 1;
+            int pageSize = 10;
+            int skip = (page - 1) * pageSize;
+            int count = query.Count();
+            int pages = (int)Math.Ceiling((double)count/(double)pageSize);
+            MessageBox.Show("Pages "+ pages);
+            query = query.Skip(skip).Take(10);
+
+
             var result = query.ToList();
+
+            var collection = new ObservableCollection<User>(result);
+            dgUsers.ItemsSource = collection;
+
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            MessageBox.Show("Working " + elapsedTime);
+
         }
     }
 }
